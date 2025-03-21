@@ -1,7 +1,7 @@
 %%
 %% %CopyrightBegin%
 %% 
-%% Copyright Ericsson AB 1996-2024. All Rights Reserved.
+%% Copyright Ericsson AB 1996-2025. All Rights Reserved.
 %% 
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -528,7 +528,7 @@ location(L) ->
     Line = proplists:get_value(line, L),
     if
 	File =/= undefined, Line =/= undefined ->
-	    io_lib:format("(~ts, line ~w)", [File, Line]);
+	    io_lib:format("(~ts:~w)", [File, Line]);
 	true ->
 	    ""
     end.

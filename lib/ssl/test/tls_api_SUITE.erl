@@ -1,7 +1,7 @@
 %%
 %% %CopyrightBegin%
 %%
-%% Copyright Ericsson AB 2019-2024. All Rights Reserved.
+%% Copyright Ericsson AB 2019-2025. All Rights Reserved.
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -1459,6 +1459,10 @@ tls_downgrade_result(Socket, Pid) ->
         {ok, {'$socket', _} = TCPSocket} ->
             ok = socket:send(TCPSocket, <<"Downgraded">>),
             {ok, <<"Downgraded">>} = socket:recv(TCPSocket, length("Downgraded")),
+            ok;
+        {ok, {'$socket', _} = TCPSocket, Bin} ->
+            ok = socket:send(TCPSocket, <<"Downgraded">>),
+            <<"Downgraded">> = Bin,
             ok;
 	{ok, TCPSocket} ->
             inet:setopts(TCPSocket, [{active, true}]),

@@ -1,7 +1,7 @@
 %%
 %% %CopyrightBegin%
 %%
-%% Copyright Ericsson AB 2007-2023. All Rights Reserved.
+%% Copyright Ericsson AB 2007-2025. All Rights Reserved.
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@
 	 init_per_testcase/2, end_per_testcase/2]).
 
 %% Test cases
--export([floor_ceil/1, error_info/1, constants/1]).
+-export([floor_ceil/1, error_info/1, constants/1, doctests/1]).
 
 
 suite() ->
@@ -36,7 +36,7 @@ suite() ->
      {timetrap,{minutes,1}}].
 
 all() ->
-    [floor_ceil, error_info, constants].
+    [floor_ceil, error_info, constants, doctests].
 
 groups() ->
     [].
@@ -175,3 +175,6 @@ ignore_undefined([H|T]) ->
     end;
 ignore_undefined([]) ->
     [].
+
+doctests(_Config) ->
+    shell_docs:test(math, []).

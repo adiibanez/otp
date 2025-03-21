@@ -1,7 +1,7 @@
 %%
 %% %CopyrightBegin%
 %%
-%% Copyright Ericsson AB 2008-2024. All Rights Reserved.
+%% Copyright Ericsson AB 2008-2025. All Rights Reserved.
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -4301,7 +4301,8 @@ assert_mfl(Socket, MFL) ->
     ?CT_LOG("Connection MFL ~p, Expecting: ~p ~n", [InfoMFL, MFL]),
     {ok, [{max_fragment_length, ConnMFL}]} = InfoMFL,
     ConnMFL = MFL.
--define(BIG_BUF, 10000000).
+
+-define(BIG_BUF, 64_000).
 %% Workaround data delivery issues on solaris | openbsd  when kernel buffers are small
 bigger_buffers() ->
     case os:type() of

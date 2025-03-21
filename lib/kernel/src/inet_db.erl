@@ -1,7 +1,7 @@
 %%
 %% %CopyrightBegin%
 %%
-%% Copyright Ericsson AB 1997-2024. All Rights Reserved.
+%% Copyright Ericsson AB 1997-2025. All Rights Reserved.
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -761,7 +761,7 @@ resolve_cnames(Domain, Type, LookupFun, LcDomain, Aliases, LcAliases) ->
                             %% Repeat with the (more) canonical domain name
                             resolve_cnames(
                               CName, Type, LookupFun, LcCname,
-                              [Domain | Aliases], [LcDomain, LcAliases])
+                              [Domain | Aliases], [LcDomain | LcAliases])
                     end;
                 [_ | _] = _CNames ->
                     ?dbg("resolve_cnames duplicate cnames=~p~n", [_CNames]),

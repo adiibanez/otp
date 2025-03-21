@@ -1,7 +1,7 @@
 %%
 %% %CopyrightBegin%
 %%
-%% Copyright Ericsson AB 1996-2024. All Rights Reserved.
+%% Copyright Ericsson AB 1996-2025. All Rights Reserved.
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -716,7 +716,7 @@ child_adm(Config) when is_list(Config) ->
     {ok, Pid} = start_link({ok, {{one_for_one, 2, 3600}, [Child]}}),
 
     %% Test that supervisors of static nature are hibernated after start
-    {current_function, {erlang, hibernate, 3}} =
+    {current_function, {gen_server, loop_hibernate, 4}} =
 	process_info(Pid, current_function),
 
     [{child1, CPid, worker, []}] = supervisor:which_children(sup_test),

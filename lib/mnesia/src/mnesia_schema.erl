@@ -1,7 +1,7 @@
 %%
 %% %CopyrightBegin%
 %%
-%% Copyright Ericsson AB 1996-2024. All Rights Reserved.
+%% Copyright Ericsson AB 1996-2025. All Rights Reserved.
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -3675,7 +3675,13 @@ change_storage_type(N, disc_copies, Cs) ->
     Cs#cstruct{disc_copies = mnesia_lib:uniq(Nodes)};
 change_storage_type(N, disc_only_copies, Cs) ->
     Nodes = [N | Cs#cstruct.disc_only_copies],
-    Cs#cstruct{disc_only_copies = mnesia_lib:uniq(Nodes)}.
+    Cs#cstruct{disc_only_copies = mnesia_lib:uniq(Nodes)};
+change_storage_type(N, {ext, Alias, Mod}, Cs) ->
+    Key = {Alias, Mod},
+    {_, Nodes0} = lists:keyfind(Key, 1, Cs#cstruct.external_copies),
+    Nodes = mnesia_lib:uniq([N | Nodes0]),
+    ExternalCopies = lists:keyreplace(Key, 1, Cs#cstruct.external_copies, {Key, Nodes}),
+    Cs#cstruct{external_copies = ExternalCopies}.
 
 %% BUGBUG: Verify match of frag info; equalit demanded for all but add_node
 
