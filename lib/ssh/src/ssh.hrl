@@ -889,9 +889,11 @@ connection out of a [server](`daemon/2`). Disabled per default.
 -doc """
 Enables (`true`) or disables (`false`) the possibility to tunnel a TCP/IP
 connection in to a [server](`daemon/2`). Disabled per default.
+
+Set `Callback` function to allow/deny/log tunnel connections. 
 """.
 -doc(#{group => <<"Daemon Options">>}).
--type tcpip_tunnel_in_daemon_option() :: {tcpip_tunnel_in, boolean()} .
+-type tcpip_tunnel_in_daemon_option() :: {tcpip_tunnel_in, boolean() | Callback::fun((HostName::string(), inet:port_number()) -> boolean() | denied)} .
 
 -doc """
 Make the server (daemon) tell the client that the server accepts extension
@@ -1344,5 +1346,11 @@ in the User's Guide chapter.
 -define(CIRC_BUF_IN_ONCE(VALUE),
         ((fun(V) -> ?CIRC_BUF_IN(V), V end)(VALUE))
        ).
-                 
+
+-define(SELECT_MSG(__Fun),
+        (fun() ->
+                #{level := __Level} = logger:get_primary_config(),
+                __Fun(__Level)
+        end)()).
+
 -endif. % SSH_HRL defined

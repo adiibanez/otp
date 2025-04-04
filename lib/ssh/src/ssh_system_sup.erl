@@ -1,7 +1,7 @@
 %%
 %% %CopyrightBegin%
 %%
-%% Copyright Ericsson AB 2008-2024. All Rights Reserved.
+%% Copyright Ericsson AB 2008-2025. All Rights Reserved.
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -164,8 +164,8 @@ get_acceptor_options(SysPid) ->
     case get_daemon_listen_address(SysPid) of
         {ok,Address} ->
             get_options(SysPid, Address);
-        {error,Error} ->
-            {error,Error}
+        {error,not_found} ->
+            {error,bad_daemon_ref}
     end.
 
 restart_acceptor(SysPid, Options0) ->

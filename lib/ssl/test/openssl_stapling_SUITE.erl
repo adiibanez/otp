@@ -1,7 +1,7 @@
 %%
 %% %CopyrightBegin%
 %%
-%% Copyright Ericsson AB 2011-2024. All Rights Reserved.
+%% Copyright Ericsson AB 2011-2025. All Rights Reserved.
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -98,7 +98,7 @@ init_per_suite(Config0) ->
 
 do_init_per_suite(Config) ->
     {ok, _} = make_certs:all(?config(data_dir, Config),
-                             ?config(priv_dir, Config)),
+                             ?config(priv_dir, Config), [{staple, true}]),
     ssl_test_lib:cert_options(Config).
 
 end_per_suite(Config) ->
