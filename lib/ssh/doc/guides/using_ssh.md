@@ -1,6 +1,8 @@
 <!--
 %CopyrightBegin%
 
+SPDX-License-Identifier: Apache-2.0
+
 Copyright Ericsson AB 2023-2024. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -535,7 +537,7 @@ DecryptFun =
     end,
 
 Cr = {InitFun,DecryptFun},
-{ok,HandleRead} = ssh_sftp:open_tar(ChannelPid, ?tar_file_name, [read,{crypto,Cw}]),
+{ok,HandleRead} = ssh_sftp:open_tar(ChannelPid, ?tar_file_name, [read,{crypto,Cr}]),
 {ok,NameValueList} = erl_tar:extract(HandleRead,[memory]),
 ok = erl_tar:close(HandleRead),
 ```

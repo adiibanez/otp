@@ -1,6 +1,8 @@
 /*
  * %CopyrightBegin%
  *
+ * SPDX-License-Identifier: Apache-2.0
+ *
  * Copyright Ericsson AB 2020-2025. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -42,6 +44,7 @@ ErtsFrameLayout ERTS_WRITE_UNLIKELY(erts_frame_layout);
 /* Global configuration variables (under the `+J` prefix) */
 #ifdef HAVE_LINUX_PERF_SUPPORT
 enum beamasm_perf_flags erts_jit_perf_support;
+char etrs_jit_perf_directory[MAXPATHLEN] = "/tmp";
 #endif
 /* Force use of single-mapped RWX memory for JIT code */
 int erts_jit_single_map = 0;

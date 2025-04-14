@@ -1,6 +1,8 @@
 <!--
 %CopyrightBegin%
 
+SPDX-License-Identifier: Apache-2.0
+
 Copyright Ericsson AB 2023-2025. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -59,8 +61,8 @@ flowchart TD
     API ---> ML[Module Level <hr> Global Level <hr> Global Filters]
     API -.Update configuration.-> DB
     ML -.-> DB
-    ML ---> HL1[Hander Level <hr> Handler Filter]
-    ML ---> HL2[Hander Level <hr> Handler Filter]
+    ML ---> HL1[Handler Level <hr> Handler Filter]
+    ML ---> HL2[Handler Level <hr> Handler Filter]
     HL1 ---> HC1[Handler Callback]
     HL2 ---> HC2[Handler Callback]
     HL1 -.-> DB
@@ -568,24 +570,21 @@ The following Kernel configuration parameters apply to Logger:
     `default`, then this entry modifies the default handler, equivalent to
     calling
 
-    ```text
-    		logger:remove_handler(default)
-
+    ```erlang
+    logger:remove_handler(default)
     ```
 
     followed by
 
     ```erlang
-    		logger:add_handler(default, Module, HandlerConfig)
-
+    logger:add_handler(default, Module, HandlerConfig)
     ```
 
     For all other values of `HandlerId`, this entry adds a new handler,
     equivalent to calling
 
     ```erlang
-    		logger:add_handler(HandlerId, Module, HandlerConfig)
-
+    logger:add_handler(HandlerId, Module, HandlerConfig)
     ```
 
     Multiple entries of this type are allowed.
@@ -599,8 +598,7 @@ The following Kernel configuration parameters apply to Logger:
     Equivalent to calling
 
     ```erlang
-    		logger:add_primary_filter(FilterId, {FilterFun, FilterConfig})
-
+    logger:add_primary_filter(FilterId, {FilterFun, FilterConfig})
     ```
 
     for each `Filter`.
@@ -614,7 +612,7 @@ The following Kernel configuration parameters apply to Logger:
     modules. Equivalent to calling
 
     ```erlang
-    		logger:set_module_level(Module, Level)
+    logger:set_module_level(Module, Level)
     ```
 
     for each `Module`.
@@ -624,9 +622,8 @@ The following Kernel configuration parameters apply to Logger:
   - **`{proxy, ProxyConfig}`** - Sets the proxy configuration, equivalent to
     calling
 
-    ```text
-    		logger:set_proxy_config(ProxyConfig)
-
+    ```erlang
+    logger:set_proxy_config(ProxyConfig)
     ```
 
     Only one entry of this type is allowed.
@@ -780,7 +777,7 @@ ways:
   handlers written for `error_logger`, just add your event handler
   with
 
-  ```text
+  ```erlang
   error_logger:add_report_handler/1,2.
   ```
 
@@ -824,7 +821,7 @@ level `notice` or more severe, are logged to the terminal via the default
 handler. To also log info events, you can either change the primary log level to
 `info`:
 
-```text
+```erlang
 1> logger:set_primary_config(level, info).
 ok
 ```

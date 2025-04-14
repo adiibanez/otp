@@ -2,6 +2,8 @@
 
 ## %CopyrightBegin%
 ##
+## SPDX-License-Identifier: Apache-2.0
+##
 ## Copyright Ericsson AB 2024. All Rights Reserved.
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,13 +21,15 @@
 ## %CopyrightEnd%
 
 cat <<EOF
-changes:
+c-files:
   - 'erts/**'
   - 'make/**'
   - 'lib/Makefile'
   - 'Makefile.in'
   - 'otp_build'
   - 'configure'
+  - '.github/**'
+  - 'xcomp/**'
 EOF
 
 APPS=$(ls -d lib/*/doc | awk -F '/' '{print $2}')

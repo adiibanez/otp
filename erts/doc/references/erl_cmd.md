@@ -1,6 +1,8 @@
 <!--
 %CopyrightBegin%
 
+SPDX-License-Identifier: Apache-2.0
+
 Copyright Ericsson AB 2023-2025. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -769,6 +771,10 @@ behavior of earlier flags.
   For more details about how to run perf see the
   [perf support](BeamAsm.md#linux-perf-support) section in the BeamAsm internal
   documentation.
+
+- **`+JPperfdirectory <directory>`{: #+JPperfdirectory }** - Set the directory
+  used to store `perf` dump and map files when running with the JIT on Linux.
+  Defaults to `/tmp`.
 
 - **`+JMsingle true|false`{: #+JMsingle }** - Enables or disables the use of
   single-mapped RWX memory for JIT code.

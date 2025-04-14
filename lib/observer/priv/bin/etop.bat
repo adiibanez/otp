@@ -1,6 +1,8 @@
 ::
 :: %CopyrightBegin%
 ::
+:: SPDX-License-Identifier: Apache-2.0
+::
 :: Copyright Ericsson AB 1996-2025. All Rights Reserved.
 ::
 :: Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,4 +21,4 @@
 ::
 
 @ECHO OFF
-CALL werl -sname etop -hidden -s etop -s erlang halt -output text %*
+CALL werl -sname etop -hidden -s etop -s erlang halt -output text -noshell %*

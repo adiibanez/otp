@@ -1,6 +1,8 @@
 /*
  * %CopyrightBegin%
  *
+ * SPDX-License-Identifier: Apache-2.0
+ *
  * Copyright Ericsson AB 2020-2024. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -45,6 +47,7 @@ enum beamasm_perf_flags {
     BEAMASM_PERF_DISABLED = 0,
 };
 extern enum beamasm_perf_flags erts_jit_perf_support;
+extern char etrs_jit_perf_directory[MAXPATHLEN];
 #    endif
 extern int erts_jit_single_map;
 

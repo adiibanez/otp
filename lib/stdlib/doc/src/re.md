@@ -1,3 +1,24 @@
+<!--
+%% %CopyrightBegin%
+%%
+%% SPDX-License-Identifier: Apache-2.0
+%%
+%% Copyright Ericsson AB 2008-2025. All Rights Reserved.
+%%
+%% Licensed under the Apache License, Version 2.0 (the "License");
+%% you may not use this file except in compliance with the License.
+%% You may obtain a copy of the License at
+%%
+%%     http://www.apache.org/licenses/LICENSE-2.0
+%%
+%% Unless required by applicable law or agreed to in writing, software
+%% distributed under the License is distributed on an "AS IS" BASIS,
+%% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+%% See the License for the specific language governing permissions and
+%% limitations under the License.
+%%
+%% %CopyrightEnd%
+-->
 This module contains regular expression matching functions for strings and
 binaries.
 
@@ -26,11 +47,18 @@ The following sections contain reference material for the regular expressions
 used by this module. The information is based on the PCRE2 documentation, with
 changes where this module behaves differently to the PCRE2 library.
 
+> #### Change {: .info }
+> Starting with Erlang/OTP 28, the underlying library for handling regular expressions via the `re`
+> module changes from PCRE to PCRE2. This upgrade brings Erlang's regular expression capabilities
+> more in line with modern standards, particularly Perl, but also introduces several breaking
+> changes and differences in behavior compared to PCRE, see
+> [PCRE incompatabilities](../guides/re_incompat.md).
 
 ## PCRE2 Regular Expression Details
 
 The syntax and semantics of the regular expressions that are supported by PCRE2
-are described in detail below. Perl's regular expressions are described in its own documentation, and regular expressions in general are covered in a number of books, some of which have
+are described in detail below. Perl's regular expressions are described in its own documentation,
+and regular expressions in general are covered in a number of books, some of which have
 copious examples. Jeffrey Friedl's "Mastering Regular Expressions", published
 by O'Reilly, covers regular expressions in great detail. This description of
 PCRE2's regular expressions is intended as reference material.

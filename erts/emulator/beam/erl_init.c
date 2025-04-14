@@ -1,6 +1,8 @@
 /*
  * %CopyrightBegin%
  *
+ * SPDX-License-Identifier: Apache-2.0
+ *
  * Copyright Ericsson AB 1997-2025. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -592,6 +594,7 @@ __decl_noreturn void __noreturn  erts_usage(void)
     erts_fprintf(stderr, "-JDdump bool   enable or disable dumping of generated assembly code for each module loaded\n");
     erts_fprintf(stderr, "-JPcover true|false|line|line_counters|function|function_counters  enable or disable instrumentation for coverage\n");
     erts_fprintf(stderr, "-JPperf true|false|dump|map|fp|no_fp   enable or disable support for perf on Linux\n");
+    erts_fprintf(stderr, "-JPperfdirectory <directory>    set the directory perf files are stored. Default: /tmp\n");
     erts_fprintf(stderr, "-JMsingle bool enable the use of single-mapped RWX memory for JIT:ed code\n");
     erts_fprintf(stderr, "\n");
 #endif
@@ -1684,7 +1687,17 @@ erl_start(int argc, char **argv)
             case 'P':
                 sub_param++;
 
-                if (has_prefix("perf", sub_param)) {
+                if (has_prefix("perfdirectory", sub_param)){
+                    arg = get_arg(sub_param+13, argv[i + 1], &i);
+#ifdef HAVE_LINUX_PERF_SUPPORT
+                    sys_strncpy(etrs_jit_perf_directory, arg, sizeof(etrs_jit_perf_directory));
+                    etrs_jit_perf_directory[sizeof(etrs_jit_perf_directory) -1 ] = '\0';
+#else
+                    erts_fprintf(stderr, "+JPperfdirectory is not supported on this platform\n");
+                    erts_usage();
+#endif
+                }
+                else if (has_prefix("perf", sub_param)) {
                     arg = get_arg(sub_param+4, argv[i + 1], &i);
 
 #ifdef HAVE_LINUX_PERF_SUPPORT
@@ -1811,14 +1824,16 @@ erl_start(int argc, char **argv)
 	    if (sys_strcmp(arg, "legacy") == 0)
 		legacy_proc_tab = 1;
 	    else {
+                long val;
 		errno = 0;
-		proc_tab_sz = strtol(arg, NULL, 10);
+		val = strtol(arg, NULL, 10);
 		if (errno != 0
-		    || proc_tab_sz < ERTS_MIN_PROCESSES
-		    || ERTS_MAX_PROCESSES < proc_tab_sz) {
+		    || val < ERTS_MIN_PROCESSES
+		    || ERTS_MAX_PROCESSES < val) {
 		    erts_fprintf(stderr, "bad number of processes %s\n", arg);
 		    erts_usage();
 		}
+                proc_tab_sz=val;
 	    }
 	    break;
 
@@ -1827,14 +1842,16 @@ erl_start(int argc, char **argv)
 	    if (sys_strcmp(arg, "legacy") == 0)
 		legacy_port_tab = 1;
 	    else {
+                long val;
 		errno = 0;
-		port_tab_sz = strtol(arg, NULL, 10);
+		val = strtol(arg, NULL, 10);
 		if (errno != 0
-		    || port_tab_sz < ERTS_MIN_PORTS
-		    || ERTS_MAX_PORTS < port_tab_sz) {
+		    || val < ERTS_MIN_PORTS
+		    || ERTS_MAX_PORTS < val) {
 		    erts_fprintf(stderr, "bad number of ports %s\n", arg);
 		    erts_usage();
 		}
+                port_tab_sz = val;
 		port_tab_sz_ignore_files = 1;
 	    }
 	    break;
@@ -2149,21 +2166,24 @@ erl_start(int argc, char **argv)
 	    }
 	    break;
 	}
-	case 't':
+	case 't': {
 	    /* set atom table size */
-	    arg = get_arg(argv[i]+2, argv[i+1], &i);
+            long val;
+            arg = get_arg(argv[i]+2, argv[i+1], &i);
 	    errno = 0;
-	    erts_atom_table_size = strtol(arg, NULL, 10);
+	    val = strtol(arg, NULL, 10);
 	    if (errno != 0 ||
-		erts_atom_table_size < MIN_ATOM_TABLE_SIZE ||
-		erts_atom_table_size > MAX_ATOM_TABLE_SIZE) {
+		val < MIN_ATOM_TABLE_SIZE ||
+		val > MAX_ATOM_TABLE_SIZE) {
 		erts_fprintf(stderr, "bad atom table size %s\n", arg);
 		erts_usage();
 	    }
+            erts_atom_table_size=val;
 	    VERBOSE(DEBUG_SYSTEM,
                     ("setting maximum number of atoms to %d\n",
 		     erts_atom_table_size));
 	    break;
+        }
 
 	case 'T' :
 	    arg = get_arg(argv[i]+2, argv[i+1], &i);

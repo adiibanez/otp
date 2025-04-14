@@ -1,6 +1,8 @@
 #
 # %CopyrightBegin%
 #
+# SPDX-License-Identifier: Apache-2.0
+#
 # Copyright Ericsson AB 1997-2024. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -64,7 +66,7 @@ DEFAULT_DOC_TARGETS+=man
 endif
 DOC_TARGETS?=$(DEFAULT_DOC_TARGETS)
 
-EX_DOC_WARNINGS_AS_ERRORS?=true
+EX_DOC_WARNINGS_AS_ERRORS?=default
 
 docs: $(DOC_TARGETS)
 
